@@ -4,6 +4,11 @@ import (
 	"github.com/go-redis/redis"
 )
 
+type Room struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+}
+
 type User struct {
 	Client *redis.Client `json:"client"`
 	Pubsub *redis.PubSub `json:"pubsub"`
