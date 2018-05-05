@@ -17,11 +17,11 @@ type Vector struct {
 }
 
 type Sync_object struct {
-	Position Vector `json"position"`
+	Id int16 `json:"id"`
+	Vector
 }
 
 type Sync_player struct {
 	Sync_object,
-	Id int16 `json:"id"`
-	Hp int16 `json`
+	Hp int16 `json:"hp"`
 }
