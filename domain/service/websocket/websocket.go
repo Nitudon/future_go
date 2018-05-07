@@ -17,7 +17,7 @@ func Routing() {
 	})
 	m.HandleConnect(websocketHandle)
 
-	http.ListenAndServe(":8080", router)
+	http.ListenAndServe(":3000", router)
 }
 
 func websocketHandle(conn *melody.Session) {
