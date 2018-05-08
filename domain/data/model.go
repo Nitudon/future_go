@@ -28,5 +28,6 @@ type Sync_object struct {
 
 type Sync_player struct {
 	Sync_object,
+	Name string `json:"name"`
 	Hp int16 `json:"hp"`
 }

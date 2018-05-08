@@ -18,14 +18,15 @@ func init() {
 	users = list.New()
 }
 
-func CreateRoom(id string, owner *domain.User) error {
-
+func CreateRoom(id string, owner *domain.User) {
+	room.Name = id
+	users.PushBack(owner)
 }
 
-func JoinRoom(user *domain.User) error {
+func JoinRoom(user domain.User) {
 	users.PushBack(user)
 }
 
-func LeftRoom(id int) error {
-	users.Remove(id)
+func LeftRoom(user domain.User) {
+	users.Remove(&list.Element{Value: user})
 }
