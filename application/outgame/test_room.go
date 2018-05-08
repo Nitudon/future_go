@@ -22,10 +22,12 @@ func TestRoom(g *gin.Context) {
 	user3.Player.Name = "test3"
 	user3.Player.Id = 3
 
-	g.JSON(200, gin.H{
-		"id":    ROOM_ID,
-		"name":  ROOM_ID,
-		"users": "[user1,user2,user3]",
-	})
+	room.Players = []domain.SyncPlayer{
+		user1.Player,
+		user2.Player,
+		user3.Player,
+	}
+
+	g.JSON(200, room)
 
 }

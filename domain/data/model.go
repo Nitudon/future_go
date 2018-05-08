@@ -5,15 +5,15 @@ import (
 )
 
 type Room struct {
-	Id      string        `json:"id"`
-	Name    string        `json:"name"`
-	Players []Sync_player `json:"players"`
+	Id      string       `json:"id"`
+	Name    string       `json:"name"`
+	Players []SyncPlayer `json:"players"`
 }
 
-type Client struct {
+type User struct {
 	Client *redis.Client `json:"client"`
 	Pubsub *redis.PubSub `json:"pubsub"`
-	Player Sync_player   `json:"player"`
+	Player SyncPlayer    `json:"player"`
 }
 
 type Vector struct {
@@ -22,14 +22,14 @@ type Vector struct {
 	Z float32 `json:"z"`
 }
 
-type Sync_object struct {
+type SyncObject struct {
 	Id int16   `json:"id"`
 	X  float32 `json:"x"`
 	Y  float32 `json:"y"`
 	Z  float32 `json:"z"`
 }
 
-type Sync_player struct {
+type SyncPlayer struct {
 	Id   int16   `json:"id"`
 	Name string  `json:"name"`
 	Hp   int16   `json:"hp"`
