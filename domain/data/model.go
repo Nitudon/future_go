@@ -5,9 +5,9 @@ import (
 )
 
 type Room struct {
-	Id      string       `json:"id"`
-	Name    string       `json:"name"`
-	Players []SyncPlayer `json:"players"`
+	Id      string       `json:"Id"`
+	Name    string       `json:"Name"`
+	Players []SyncPlayer `json:"Players"`
 }
 
 type User struct {
@@ -16,23 +16,17 @@ type User struct {
 	Player SyncPlayer    `json:"player"`
 }
 
-type Vector struct {
-	X float32 `json:"x"`
-	Y float32 `json:"y"`
-	Z float32 `json:"z"`
-}
-
 type SyncObject struct {
-	Id int16   `json:"id"`
+	Id int16   `json:"Id"`
 	X  float32 `json:"x"`
 	Y  float32 `json:"y"`
 	Z  float32 `json:"z"`
 }
 
 type SyncPlayer struct {
-	Id   int16   `json:"id"`
-	Name string  `json:"name"`
-	Hp   int16   `json:"hp"`
+	Id   int16   `json:"Id"`
+	Name string  `json:"Name"`
+	Hp   float32 `json:"Hp"`
 	X    float32 `json:"x"`
 	Y    float32 `json:"y"`
 	Z    float32 `json:"z"`
