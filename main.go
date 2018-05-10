@@ -12,9 +12,10 @@ import (
 func main() {
 	router := gin.Default()
 
-	router.GET("/test", outgame.TestRoom)
-
 	websocket.Routing(router)
+	room := router.Group("/room")
+
+	room.Handlers = outgame.InitRoom
 
 	http.ListenAndServe(":8080", router)
 }

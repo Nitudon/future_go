@@ -17,14 +17,14 @@ type User struct {
 }
 
 type SyncObject struct {
-	Id int16   `json:"Id"`
+	Id int     `json:"Id"`
 	X  float32 `json:"x"`
 	Y  float32 `json:"y"`
 	Z  float32 `json:"z"`
 }
 
 type SyncPlayer struct {
-	Id   int16   `json:"Id"`
+	Id   int     `json:"Id"`
 	Name string  `json:"Name"`
 	Hp   float32 `json:"Hp"`
 	X    float32 `json:"x"`
