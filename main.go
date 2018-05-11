@@ -15,7 +15,7 @@ func main() {
 	websocket.Routing(router)
 	room := router.Group("/room")
 
-	room.Handlers = outgame.InitRoom
+	outgame.InitRoom(room)
 
 	http.ListenAndServe(":8080", router)
 }
