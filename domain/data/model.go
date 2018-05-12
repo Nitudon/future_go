@@ -2,6 +2,7 @@ package domain
 
 import (
 	"github.com/go-redis/redis"
+	"gopkg.in/olahol/melody.v1"
 )
 
 type SyncType int
@@ -13,37 +14,39 @@ const (
 )
 
 type Room struct {
-	Id      string        `json:"room_id"`
-	Name    string        `json:"name"`
-	Players []*SyncPlayer `json:"players"`
+	RoomId  string       `json:"Id"`
+	Name    string       `json:"Name"`
+	Time    float32      `json:"Time"`
+	Players []SyncPlayer `json:"Players"`
 }
 
 type User struct {
-	Client *redis.Client `json:"client"`
-	Pubsub *redis.PubSub `json:"pubsub"`
-	Player SyncPlayer    `json:"player"`
+	Client  *redis.Client   `json:"client"`
+	Session *melody.Session `json:"sesssion"`
+	Pubsub  *redis.PubSub   `json:"pubsub"`
+	Player  *SyncPlayer     `json:"player"`
 }
 
 type SyncMessage struct {
-	SyncType SyncType `json:"sync_type"`
-	Message  string   `json:"message"`
+	SyncType SyncType `json:"SyncType"`
+	Message  string   `json:"Message"`
 }
 
 type SyncObject struct {
-	Id          string  `json:"id"`
-	X           float32 `json:"position_x"`
-	Y           float32 `json:"position_y"`
-	Z           float32 `json:"position_z"`
-	IsDestroyed bool    `json:"is_destroyed"`
+	Id          string  `json:"Id"`
+	X           float32 `json:"PositionX"`
+	Y           float32 `json:"PositionY"`
+	Z           float32 `json:"PositionZ"`
+	IsDestroyed bool    `json:"IsDestroyed"`
 }
 
 type SyncPlayer struct {
-	Id          string  `json:"id"`
-	PlayerId    int     `json:"player_id`
-	Name        string  `json:"name"`
-	X           float32 `json:"position_x"`
-	Y           float32 `json:"position_y"`
-	Z           float32 `json:"position_z"`
-	IsDestroyed bool    `json:"is_destroyed"`
-	Hp          float32 `json:"hp"`
+	Id          string  `json:"Id"`
+	PlayerId    int     `json:"PlayerId"`
+	Name        string  `json:"Name"`
+	X           float32 `json:"PositionX"`
+	Y           float32 `json:"PositionY"`
+	Z           float32 `json:"PositionZ"`
+	IsDestroyed bool    `json:"IsDestroyed"`
+	Hp          float32 `json:"Hp"`
 }
