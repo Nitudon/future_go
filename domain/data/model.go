@@ -4,10 +4,18 @@ import (
 	"github.com/go-redis/redis"
 )
 
+type SyncType int
+
+const (
+	ROOM SyncType = iota
+	OBJECT
+	PLAYER
+)
+
 type Room struct {
-	Id      string       `json:"Id"`
-	Name    string       `json:"Name"`
-	Players []SyncPlayer `json:"Players"`
+	Id      string        `json:"room_id"`
+	Name    string        `json:"name"`
+	Players []*SyncPlayer `json:"players"`
 }
 
 type User struct {
@@ -16,18 +24,26 @@ type User struct {
 	Player SyncPlayer    `json:"player"`
 }
 
+type SyncMessage struct {
+	SyncType SyncType `json:"sync_type"`
+	Message  string   `json:"message"`
+}
+
 type SyncObject struct {
-	Id int     `json:"Id"`
-	X  float32 `json:"x"`
-	Y  float32 `json:"y"`
-	Z  float32 `json:"z"`
+	Id          string  `json:"id"`
+	X           float32 `json:"position_x"`
+	Y           float32 `json:"position_y"`
+	Z           float32 `json:"position_z"`
+	IsDestroyed bool    `json:"is_destroyed"`
 }
 
 type SyncPlayer struct {
-	Id   int     `json:"Id"`
-	Name string  `json:"Name"`
-	Hp   float32 `json:"Hp"`
-	X    float32 `json:"x"`
-	Y    float32 `json:"y"`
-	Z    float32 `json:"z"`
+	Id          string  `json:"id"`
+	PlayerId    int     `json:"player_id`
+	Name        string  `json:"name"`
+	X           float32 `json:"position_x"`
+	Y           float32 `json:"position_y"`
+	Z           float32 `json:"position_z"`
+	IsDestroyed bool    `json:"is_destroyed"`
+	Hp          float32 `json:"hp"`
 }
