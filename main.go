@@ -17,5 +17,5 @@ func main() {
 
 	outgame.InitRoom(room)
 
-	http.ListenAndServe(":8080", router)
+	http.ListenAndServe(":3000", router)
 }

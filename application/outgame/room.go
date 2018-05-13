@@ -34,6 +34,7 @@ func JoinRoom(g *gin.Context) {
 	cl.Player = user
 
 	room.Players = append(room.Players, *user)
+	Users = append(Users, cl)
 	g.JSON(
 		200, room,
 	)

@@ -2,7 +2,7 @@ package domain
 
 import (
 	"github.com/go-redis/redis"
-	"gopkg.in/olahol/melody.v1"
+	"github.com/olahol/melody"
 )
 
 type SyncType int

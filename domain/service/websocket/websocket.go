@@ -6,8 +6,9 @@ import (
 	"../../../infra"
 
 	"github.com/gin-gonic/gin"
-	"gopkg.in/olahol/melody.v1"
+	"github.com/olahol/melody"
 	"log"
+	"sync"
 )
 
 func Routing(r *gin.Engine) {
@@ -23,21 +24,25 @@ func Routing(r *gin.Engine) {
 }
 
 func connectHandle(conn *melody.Session) {
+	lock := new(sync.Mutex)
+	lock.Lock()
+
 	if len(outgame.Users) < 1 {
 		return
 	}
 
 	var err error
 
-	user := outgame.Users[len(outgame.Users)-1]
-	user.Session = conn
-	user.Client, err = infra.CreateRedisClient()
+	outgame.Users[len(outgame.Users)-1].Session = conn
+	outgame.Users[len(outgame.Users)-1].Client, err = infra.CreateRedisClient()
 	if err != nil{
 		log.Print(err.Error())
 		return
 	}
-	user.Pubsub = user.Client.Subscribe(outgame.ROOM_ID)
-	go ingame.ReceiveSyncData(user)
+	outgame.Users[len(outgame.Users)-1].Pubsub = outgame.Users[len(outgame.Users)-1].Client.Subscribe(outgame.ROOM_ID)
+
+	lock.Unlock()
+	go ingame.ReceiveSyncData(outgame.Users[len(outgame.Users)-1])
 }
 
 func messageHandle(conn *melody.Session, msg []byte)  {
