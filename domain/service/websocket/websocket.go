@@ -1,11 +1,13 @@
 package websocket
 
 import (
-	"../../../application/ingame"
 	"../../../application/outgame"
+	"../../../application/ingame"
+	"../../../infra"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/olahol/melody.v1"
+	"log"
 )
 
 func Routing(r *gin.Engine) {
@@ -16,10 +18,8 @@ func Routing(r *gin.Engine) {
 		m.HandleRequest(g.Writer, g.Request)
 	})
 
-	group.POST("/syncPlayer", func(g *gin.Context) {
-		ingame.SyncPlayer(g)
-	})
 	m.HandleConnect(connectHandle)
+	m.HandleMessage(messageHandle)
 }
 
 func connectHandle(conn *melody.Session) {
@@ -27,6 +27,21 @@ func connectHandle(conn *melody.Session) {
 		return
 	}
 
+	var err error
+
 	user := outgame.Users[len(outgame.Users)-1]
 	user.Session = conn
+	user.Client, err = infra.CreateRedisClient()
+	if err != nil{
+		log.Print(err.Error())
+		return
+	}
+	user.Pubsub = user.Client.Subscribe(outgame.ROOM_ID)
+	go ingame.ReceiveSyncData(user)
+}
+
+func messageHandle(conn *melody.Session, msg []byte)  {
+	data := string(msg[:])
+
+	infra.PublishData(outgame.ROOM_ID,data)
 }

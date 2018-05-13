@@ -2,8 +2,6 @@ package outgame
 
 import (
 	"../../domain/data"
-	"../../infra"
-
 	"github.com/gin-gonic/gin"
 	"github.com/rs/xid"
 )
@@ -25,8 +23,6 @@ func InitRoom(group *gin.RouterGroup) {
 }
 
 func JoinRoom(g *gin.Context) {
-	var err error
-
 	name := "test"
 
 	user := new(domain.SyncPlayer)
@@ -35,14 +31,6 @@ func JoinRoom(g *gin.Context) {
 	user.Id = xid.New().String()
 
 	cl := new(domain.User)
-	cl.Client, err = infra.CreateRedisClient()
-	if err != nil {
-		g.JSON(
-			500, gin.H{
-				"error": "Redis Session Error",
-			},
-		)
-	}
 	cl.Player = user
 
 	room.Players = append(room.Players, *user)
