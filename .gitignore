@@ -13,4 +13,5 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-
+# Config output of the Goland, auto created when goland's config is updated
+.idea
